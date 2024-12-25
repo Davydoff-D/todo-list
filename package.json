@@ -1,0 +1,53 @@
+{
+    "name": "todo-list",
+    "displayName": "Todo List",
+    "description": "A VS Code extension that lists TODO comments",
+    "version": "0.0.1",
+    "publisher": "yourusername",
+    "engines": {
+        "vscode": "^1.50.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onView:todoList"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "todo-list.goToTodo",
+                "title": "Go to TODO"
+            },
+            {
+                "command": "todo-list.refresh",
+                "title": "Refresh TODO List"
+            }
+        ],
+        "views": {
+            "explorer": [
+                {
+                    "id": "todoList",
+                    "name": "TODO List"
+                }
+            ]
+        }
+    },
+    "scripts": {
+        "build": "esbuild src/extension.ts --bundle --outfile=out/extension.js --platform=node --target=es2020 --external:vscode",
+        "watch": "esbuild src/extension.ts --bundle --outfile=out/extension.js --platform=node --target=es2020 --external:vscode --watch",
+        "prepublish": "npm run build",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "esbuild src/test/runTest.ts --bundle --outfile=out/test/runTest.js --platform=node --target=es2020 --external:vscode && node ./out/test/runTest.js"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.50.0",
+        "@types/glob": "^7.1.3",
+        "@types/mocha": "^8.0.4",
+        "@types/node": "14.x",
+        "esbuild": "^0.17.0",
+        "typescript": "^4.0.3",
+        "vscode-test": "^1.4.0"
+    }
+}
